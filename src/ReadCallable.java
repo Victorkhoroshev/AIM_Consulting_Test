@@ -5,7 +5,6 @@ import java.util.*;
 import java.util.concurrent.Callable;
 
 public class ReadCallable implements Callable<Map<String, Set<String>>> {
-    private static final String SEPARATOR = ";";
     private final String filename;
 
     public ReadCallable(String filename) {
@@ -22,14 +21,14 @@ public class ReadCallable implements Callable<Map<String, Set<String>>> {
             List<Set<String>> sets = new ArrayList<>();
 
             while ((currentLine = reader.readLine()) != null) {
-                if (!currentLine.equals("")) {
+                if (!currentLine.isEmpty()) {
                     if (lineNumber++ == 1) {
-                        titles = currentLine.split(SEPARATOR);
+                        titles = currentLine.split(TestConsoleApp.SEPARATOR);
                         for (String ignored : titles) {
                             sets.add(new HashSet<>());
                         }
                     } else {
-                        String[] elements = currentLine.split(SEPARATOR);
+                        String[] elements = currentLine.split(TestConsoleApp.SEPARATOR);
                         for (int i = 0; i < elements.length; i++) {
                             sets.get(i).add(elements[i]);
                         }
